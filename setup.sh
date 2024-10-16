@@ -42,12 +42,13 @@ fi
 
 {
     echo 'export PATH="/usr/local/bin:$PATH"'
-    echo "source ~/.dotfiles/.zshrc"
     echo ""
     echo "# Load previous ${current_zshrc} zshrc"
     echo "if [ -f ~/.dotfiles/${current_zshrc}.zshrc ]; then"
     echo "    source ~/.dotfiles/${current_zshrc}.zshrc"
     echo "fi"
+    echo ""
+    echo "source ~/.dotfiles/.zshrc"
 } >> "$HOME/.zshrc"
 
 echo "\033[1;32mConfiguration complete! Your .dotfiles have been set up and changes applied to the zsh shell.\033[0m"
