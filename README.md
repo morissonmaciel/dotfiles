@@ -21,9 +21,9 @@ To clone the repository and set up the configuration, follow these steps:
 
 Alternatively, you can download and run the setup script directly using `curl`:
 
-    ```sh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/morissonmaciel/Dotfiles/main/setup.sh)"
-    ```
+  ```sh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/morissonmaciel/Dotfiles/main/setup.sh)"
+  ```
 
 This will create symlinks for the dotfiles in your home directory and install any necessary dependencies.
 
