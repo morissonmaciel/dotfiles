@@ -42,3 +42,5 @@ fi
     echo "    source ~/.dotfiles/${current_zshrc}.zshrc"
     echo "fi"
 } >> "$HOME/.zshrc"
+
+echo -e "\033[1;32mConfiguration complete! Your .dotfiles have been set up and changes applied to the zsh shell.\033[0m"
