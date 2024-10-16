@@ -1,9 +1,8 @@
 #!/bin/bash
 
 clear && clear
-
-echo "This script will configure .dotfiles for the current user folder and apply changes to the zsh shell."
-read -p "Is it okay to proceed? (Y/n): " proceed
+echo -e "\033[1;34mThis script will configure .dotfiles for the current user folder and apply changes to the zsh shell.\033[0m"
+read -p $'\033[1;33mIs it okay to proceed? (Y/n): \033[0m' proceed
 proceed=${proceed:-Y}
 
 if ! [[ "$proceed" =~ ^[Yy]$ ]]; then
@@ -31,6 +30,8 @@ if [ -f "$HOME/.zshrc" ]; then
 
     current_zshrc=${current_zshrc:-user-original}
     cp "$HOME/.zshrc" "$HOME/.dotfiles/${current_zshrc}.zshrc"
+
+    rm -rf "$HOME/.zshrc"
 fi
 
 {
