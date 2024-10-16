@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear && clear
+
 echo "This script will configure .dotfiles for the current user folder and apply changes to the zsh shell."
 read -p "Is it okay to proceed? (Y/n): " proceed
 proceed=${proceed:-Y}
