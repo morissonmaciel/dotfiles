@@ -1,4 +1,3 @@
-{{REWRITTEN_CODE}}
 #!/bin/bash
 
 echo "This script will configure .dotfiles for the current user folder and apply changes to the zsh shell."
@@ -40,4 +39,3 @@ if [[ "$proceed" =~ ^[Yy]$ ]]; then
 else
     echo "Operation cancelled."
 fi
-{{REWRITTEN_CODE}}
