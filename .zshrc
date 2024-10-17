@@ -65,7 +65,7 @@ fi
 
 # Setting up environment variables for .dotfiles
 export DOTFILES_FIRST_RUN=NO
-export DOTFILES_USER_PROMPT_SETUPS=YES
+export DOTFILES_USER_PROMPT_SETUPS=NO
 
 # Source dropin environment variables
 source $HOME/.envrc
