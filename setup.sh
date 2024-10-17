@@ -24,6 +24,16 @@ if [ -f "$HOME/.dotfiles/backup/.zshrc" ]; then
     fi
 fi
 
+if [ -f "$HOME/.dotfiles/backup/.envrc" ]; then
+    read -p $'\033[1;33mA backup .envrc file was found. Do you want to restore it? (Y/n): \033[0m' restore_envrc
+    restore_envrc=${restore_envrc:-Y}
+
+    if [[ "$restore_envrc" =~ ^[Yy]$ ]]; then
+        cp "$HOME/.dotfiles/backup/.envrc" "$HOME/.envrc"
+        echo "\033[1;32mBackup .envrc restored.\033[0m"
+    fi
+fi
+
 if [ -f "$HOME/.dotfiles/backup/.gitconfig" ]; then
     read -p $'\033[1;33mA backup .gitconfig file was found. Do you want to restore it? (Y/n): \033[0m' restore_gitconfig
     restore_gitconfig=${restore_gitconfig:-Y}
@@ -58,6 +68,12 @@ if [ -f "$HOME/.zshrc" ]; then
     echo "\033[1;32mCurrent .zshrc has been backed up to $HOME/.dotfiles/backup/.\033[0m"
 fi
 
+if [ -f "$HOME/.envrc" ]; then
+    mkdir -p "$HOME/.dotfiles/backup"
+    cp "$HOME/.envrc" "$HOME/.dotfiles/backup/.envrc"
+    echo "\033[1;32mCurrent .envrc has been backed up to $HOME/.dotfiles/backup/.\033[0m"
+fi
+
 if [ -f "$HOME/.gitconfig" ]; then
     mkdir -p "$HOME/.dotfiles/backup"
     cp "$HOME/.gitconfig" "$HOME/.dotfiles/backup/.gitconfig"
@@ -75,6 +91,7 @@ if [[ "$1" == "--web" ]]; then
     # Download main files
     main_files=(
         ".zshrc"
+        ".envrc"
         ".p10k.zsh"
         ".gitconfig"
     )

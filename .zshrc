@@ -55,13 +55,30 @@ if [ -f $HOME/.dotfiles/sources/source-copilot.zsh ]; then
     source $HOME/.dotfiles/sources/source-copilot.zsh
 fi
 
-# Source some scripts to the command prompt allowing configuration any time
-# Set an environment variable to flag if scripts should show users setup message.
-export SHOW_SETUP_MESSAGE=true
+# Setting up environment variables for .dotfiles
+export DOTFILES_FIRTST_RUN=false
+export DOTFILES_USER_PROMPT_SETUPS=false
 
+# Source dropin environment variables
+source $HOME/.envrc
+
+if [ $DOTFILES_FIRTST_RUN = true ]; then
+    sed -i 's/^DOTFILES_FIRTST_RUN=.*/DOTFILES_FIRTST_RUN=false/' $HOME/.envrc
+    # First time setting up prompts for user adjust configurations
+    DOTFILES_USER_PROMPT_SETUPS=true
+fi
+
+# Source some scripts to the command prompt allowing configuration any time
 source $HOME/.dotfiles/scripts/setup-syntax-highlighting.sh
 source $HOME/.dotfiles/scripts/setup-autosuggestions.sh
 source $HOME/.dotfiles/scripts/setup-powerlevel10k.sh
 source $HOME/.dotfiles/scripts/setup-git.sh
 source $HOME/.dotfiles/scripts/setup-github.sh
 source $HOME/.dotfiles/scripts/setup-ollama.sh
+
+if [ $DOTFILES_USER_PROMPT_SETUPS = true ] && [ $DOTFILES_FIRTST_RUN = true ]; then
+    echo "Since it's the first time you are running the .dotfiles, you may be prompted to configure some settings."
+    echo "Please, follow the instructions and configure the settings as you wish."
+    echo ""
+    echo "If you want to always be prompted to configure the settings, set the DOTFILES_USER_PROMPT_SETUPS variable to true in the .envrc file."
+fi

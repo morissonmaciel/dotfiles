@@ -4,7 +4,7 @@ setup_autosuggestions() {
     source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 }
 
-if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+if [ -z "$DOTFILES_USER_PROMPT_SETUPS" ] || [ "$DOTFILES_USER_PROMPT_SETUPS" = "NO" ]; then
     exit 0
 fi
 

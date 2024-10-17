@@ -4,7 +4,7 @@ setup_syntax_highlighting() {
     source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 }
 
-if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+if [ -z "$DOTFILES_USER_PROMPT_SETUPS" ] || [ "$DOTFILES_USER_PROMPT_SETUPS" = "NO" ]; then
     exit 0
 fi
 
