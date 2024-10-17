@@ -3,7 +3,7 @@ if [ -f $HOME/.dotfiles/pl-10k-instant-prompt.zsh ]; then
   source $HOME/.dotfiles/pl-10k-instant-prompt.zsh
 fi
 
-#.zshrc
+# Main .zshrc contents
 export PATH="/usr/loca/bin:$PATH"
 alias ll='ls -la'
 
@@ -63,4 +63,9 @@ fi
 if [ ! -f $HOME/.hushlogin ]; then
     touch $HOME/.hushlogin
     echo "Next time you open the terminal, the last login message will not be presented."
+fi
+
+# Source commands from github configuration, if it exists
+if [ -f $HOME/.dotfiles/ammends/github.zsh ]; then
+    source $HOME/.dotfiles/ammends/github.zsh
 fi
