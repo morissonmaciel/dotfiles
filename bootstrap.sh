@@ -9,7 +9,7 @@ rm -rf ~/.envrc
 ln -s ~/.dotfiles/.envrc ~/.envrc
 
 if grep -q "DOTFILES_FIRST_RUN" ~/.envrc; then
-    sed -i 's/^DOTFILES_FIRST_RUN=.*/DOTFILES_FIRST_RUN=YES/' ~/.envrc
+    sed -i '' 's/^DOTFILES_FIRST_RUN=.*/DOTFILES_FIRST_RUN=YES/' ~/.dotfiles/.envrc
 else
     echo "DOTFILES_FIRST_RUN=YES" >> ~/.envrc
 fi
