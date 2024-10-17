@@ -25,7 +25,7 @@ if [ ! -d $HOME/.dropinrc ]; then
     pw "Remember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically."
 fi
 
-for file in $HOME/.dropinrc/*; do
+for file in $HOME/.dropinrc/*(.N); do
     if [ -f "$file" ]; then
         source "$file"
     fi
