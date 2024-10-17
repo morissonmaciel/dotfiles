@@ -45,6 +45,8 @@ fi
 
 echo "\033[1;32mCreating new .dotfiles installation folder.\033[0m"
 mkdir "$HOME/.dotfiles"
+mkdir "$HOME/.dotfiles/sources"
+mkdir "$HOME/.dotfiles/scripts"
 
 #
 # Backup existing .zshrc and .gitconfig files
