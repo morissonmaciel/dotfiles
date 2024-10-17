@@ -1,7 +1,7 @@
 if ! alias po &>/dev/null; then
-    alias po="echo"
-    alias pe="echo"
-    alias pw="echo"
+    echo "commands.sh script not imported in .zshrc".
+    echo "Please run ~/.dotfiles/bootstrap.sh to fix this issue."
+    return 1
 fi
 
 check_github_ssh() {
@@ -146,7 +146,7 @@ setup_github_cli() {
 }
 
 if [ -z "$DOTFILES_USER_PROMPT_SETUPS" ] || [ "$DOTFILES_USER_PROMPT_SETUPS" = "NO" ]; then
-    exit 0
+    return 0
 fi
 
 if [ ! command -v gh &> /dev/null ]; then

@@ -1,5 +1,7 @@
 if ! alias po &>/dev/null; then
-    alias po="echo"
+    echo "commands.sh script not imported in .zshrc".
+    echo "Please run ~/.dotfiles/bootstrap.sh to fix this issue."
+    return 1
 fi
 
 func ask_copilot() {
