@@ -10,46 +10,115 @@ if ! [[ "$proceed" =~ ^[Yy]$ ]]; then
     exit 1
 fi
 
-if [ ! -d "$HOME/.dotfiles" ]; then
-    mkdir "$HOME/.dotfiles"
+#
+# Cleaning up previous installation for .dotfiles
+#
+
+if [ -f "$HOME/.dotfiles/backup/.zshrc" ]; then
+    read -p $'\033[1;33mA backup .zshrc file was found. Do you want to restore it? (Y/n): \033[0m' restore_zshrc
+    restore_zshrc=${restore_zshrc:-Y}
+
+    if [[ "$restore_zshrc" =~ ^[Yy]$ ]]; then
+        cp "$HOME/.dotfiles/backup/.zshrc" "$HOME/.zshrc"
+        echo "\033[1;32mBackup .zshrc restored.\033[0m"
+    fi
 fi
 
-if [[ "$1" == "--web" ]]; then
-    curl -L -o "$HOME/.dotfiles/.zshrc" \
-        https://raw.githubusercontent.com/morissonmaciel/Dotfiles/main/.zshrc
-    curl -L -o "$HOME/.dotfiles/ask-ollama.zshrc" \
-        https://raw.githubusercontent.com/morissonmaciel/Dotfiles/main/ask-ollama.zshrc
-else
-    for file in "$PWD"/*.zshrc; do
-        if [ -f "$file" ]; then
-            cp "$file" "$HOME/.dotfiles/"
-        fi
-    done
+if [ -f "$HOME/.dotfiles/backup/.gitconfig" ]; then
+    read -p $'\033[1;33mA backup .gitconfig file was found. Do you want to restore it? (Y/n): \033[0m' restore_gitconfig
+    restore_gitconfig=${restore_gitconfig:-Y}
+
+    if [[ "$restore_gitconfig" =~ ^[Yy]$ ]]; then
+        cp "$HOME/.dotfiles/backup/.gitconfig" "$HOME/.gitconfig"
+        echo "\033[1;32mBackup .gitconfig restored.\033[0m"
+    fi
 fi
+
+#
+# Purge existing .dotfiles folder
+#
+
+echo "\033[1;33mCleaning up previous .dotfiles installation...\033[0m"
+if [ -d "$HOME/.dotfiles" ]; then
+    rm -rf "$HOME/.dotfiles"
+fi
+
+echo "\033[1;32mCreating new .dotfiles installation folder.\033[0m"
+mkdir "$HOME/.dotfiles"
+
+#
+# Backup existing .zshrc and .gitconfig files
+#
 
 if [ -f "$HOME/.zshrc" ]; then
-    read -p "Enter the name of your current .zshrc backup (default: user-original): " current_zshrc
-
-    current_zshrc=${current_zshrc:-user-original}
-    if [ -f "$HOME/.dotfiles/${current_zshrc}.zshrc" ]; then
-        echo "Backup ${current_zshrc}.zshrc already exists. It will be used in the new .zshrc."
-    else
-        cp "$HOME/.zshrc" "$HOME/.dotfiles/${current_zshrc}.zshrc"
-    fi
-
-    rm -rf "$HOME/.zshrc"
+    mkdir -p "$HOME/.dotfiles/backup"
+    cp "$HOME/.zshrc" "$HOME/.dotfiles/backup/.zshrc"
+    echo "\033[1;32mCurrent .zshrc has been backed up to $HOME/.dotfiles/backup/.\033[0m"
 fi
 
-{
-    echo 'export PATH="/usr/local/bin:$PATH"'
-    echo ""
-    echo "# Load previous ${current_zshrc} zshrc"
-    echo "if [ -f ~/.dotfiles/${current_zshrc}.zshrc ]; then"
-    echo "    source ~/.dotfiles/${current_zshrc}.zshrc"
-    echo "fi"
-    echo ""
-    echo "source ~/.dotfiles/.zshrc"
-} >> "$HOME/.zshrc"
+if [ -f "$HOME/.gitconfig" ]; then
+    mkdir -p "$HOME/.dotfiles/backup"
+    cp "$HOME/.gitconfig" "$HOME/.dotfiles/backup/.gitconfig"
+    echo "\033[1;32mCurrent .gitconfig has been backed up to $HOME/.dotfiles/backup/.\033[0m"
+fi
 
+#
+# Web installing .dotfiles, scripts and source files
+#
+
+if [[ "$1" == "--web" ]]; then
+    curl -L -o "$HOME/.dotfiles/bootstrap.sh" \
+        https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/bootstrap.sh
+
+    # Download main files
+    main_files=(
+        ".zshrc"
+        ".p10k.zsh"
+        ".gitconfig"
+    )
+
+    for file in "${main_files[@]}"; do
+        curl -L -o "$HOME/.dotfiles/$file" \
+            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/$file"
+    done
+
+    # Download source files
+    sources=(
+        "source-instant-prompt.zsh"
+    )
+
+    for source in "${sources[@]}"; do
+        curl -L -o "$HOME/.dotfiles/sources/$source" \
+            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/sources/$source"
+    done
+
+    # Download scripts files
+    scripts=(
+        "setup-autosuggestions.sh"
+        "setup-syntax-highlighting.sh"
+        "setup-powerlevel10k.sh"
+        "setup-git.sh"
+        "setup-github.sh"
+        "setup-ollama.sh"
+    )
+
+    for script in "${scripts[@]}"; do
+        curl -L -o "$HOME/.dotfiles/scripts/$script" \
+            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/scripts/$script"
+    done
+
+else
+    echo "This setup is intended for web installation only. Please use the --web flag."
+    exit 1
+fi
+
+#
+# Bootstrap .dotfiles configuration
+#
+
+cd "$HOME/.dotfiles"
+bash bootstrap.sh
+
+# Final message
 echo "\033[1;32mConfiguration complete! Your .dotfiles have been set up and changes applied to the zsh shell.\033[0m"
 echo "\033[1;33mPlease close and re-open your terminal to apply the changes.\033[0m"
