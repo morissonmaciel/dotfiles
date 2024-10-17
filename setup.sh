@@ -87,6 +87,8 @@ if [[ "$1" == "--web" ]]; then
     # Download source files
     sources=(
         "source-instant-prompt.zsh"
+        "source-ollama.zsh"
+        "source-copilot.zsh"
     )
 
     for source in "${sources[@]}"; do

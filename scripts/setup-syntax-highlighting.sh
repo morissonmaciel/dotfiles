@@ -4,6 +4,10 @@ setup_syntax_highlighting() {
     source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 }
 
+if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+    exit 0
+fi
+
 if [ ! -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     echo "zsh-syntax-highlighting not found. Run 'setup_syntax_highlighting' to install it."
 fi

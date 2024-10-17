@@ -1,5 +1,12 @@
 OLLAMA_MODEL="mistral"
 
+check_ollama() {
+    if ! command -v ollama &> /dev/null; then
+        echo "ollama is not installed. Please install ollama first using the command setup_ollama."
+        return 1
+    fi
+}
+
 check_ollama_model() {
     model_name="${1:-$OLLAMA_MODEL}"
 
@@ -53,25 +60,12 @@ setup_ollama() {
     fi
 }
 
-if ! command -v ollama &> /dev/null; then
+if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+    exit 0
+fi
+
+if ! check_ollama; then
   echo "ollama is not installed. Install it using the setup_ollama command."
 elif ! check_ollama_model; then
   echo "No ollama model is installed. Install it using the setup_ollama_model command."
-else
-
-    ask_ollama() {
-        local text="$*"
-        local prompt="Acting as a bash specialist, return \
-            command lines or explanation for '$text'. \
-            Do not use markdown or any other formating, \
-            ony using plain text and the previously mentioned tags."
-        model_name="${OLLAMA_MODEL:-mistral}"
-
-        echo "[User] Asking Ollama model $model_name for '$text'..."
-        echo ""
-
-        ollama run "$model_name" "$prompt"
-    }
-
-    alias llama=ask_ollama
 fi

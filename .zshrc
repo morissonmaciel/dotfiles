@@ -46,11 +46,19 @@ if [ -f $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme ]; then
 fi
 
 # Check for ollama and apply it to the command prompt
-# if [ -f $HOME/.dotfiles/ammends/ask-ollama.zshrc ]; then
-#     source $HOME/.dotfiles/ammends/ask-ollama.zshrc
-# fi
+if [ -f $HOME/.dotfiles/sources/source-ollama.zsh ]; then
+    source $HOME/.dotfiles/sources/source-ollama.zsh
+fi
+
+# Check for copilot and apply it to the command prompt
+if [ -f $HOME/.dotfiles/sources/source-copilot.zsh ]; then
+    source $HOME/.dotfiles/sources/source-copilot.zsh
+fi
 
 # Source some scripts to the command prompt allowing configuration any time
+# Set an environment variable to flag if scripts should show users setup message.
+export SHOW_SETUP_MESSAGE=true
+
 source $HOME/.dotfiles/scripts/setup-syntax-highlighting.sh
 source $HOME/.dotfiles/scripts/setup-autosuggestions.sh
 source $HOME/.dotfiles/scripts/setup-powerlevel10k.sh

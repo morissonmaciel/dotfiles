@@ -4,6 +4,10 @@ setup_autosuggestions() {
     source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 }
 
+if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+    exit 0
+fi
+
 if [ ! -f $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     echo "zsh-autosuggestions not found. Run 'setup_autosuggestions' to install it."
 fi

@@ -16,6 +16,12 @@ check_copilot_extension() {
     fi
 }
 
+check_github_cli() {
+    if ! command -v gh &> /dev/null; then
+        echo "GitHub CLI is not installed. Please run setup_github_cli."
+    fi
+}
+
 setup_github_ssh() {
   echo -n "Enter your GitHub email: "
   read github_email
@@ -119,6 +125,10 @@ setup_github_cli() {
     setup_copilot_extension
 }
 
+if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+    exit 0
+fi
+
 if [ ! command -v gh &> /dev/null ]; then
     echo "github cli is not installed. Install it using the command setup_github_cli."
 elif ! gh auth status &> /dev/null; then
@@ -127,6 +137,4 @@ elif [ ! -f "$HOME/.ssh/id_rsa_github" ]; then
     check_github_ssh
 elif ! gh extension list | grep -q 'gh-copilot'; then
     check_copilot_extension
-else
-    alias copilot="gh copilot"
 fi

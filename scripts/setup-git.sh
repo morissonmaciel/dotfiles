@@ -18,6 +18,10 @@ setup_git() {
     fi
 }
 
+if [ "$SHOW_SETUP_MESSAGE" != "true" ]; then
+    exit 0
+fi
+
 if [ ! command -v git &> /dev/null ]; then
     echo "git is not installed. Install it using the command setup_git."
 fi
