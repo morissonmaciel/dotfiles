@@ -1,6 +1,12 @@
 #!/bin/bash
 
 clear && clear
+
+if [[ "$1" != "--web" ]]; then
+    echo "This setup is intended for web installation only. Please use the --web flag."
+    exit 1
+fi
+
 echo "\033[1;34mThis script will configure .dotfiles for the current user folder and apply changes to the zsh shell.\033[0m"
 read -p $'\033[1;33mIs it okay to proceed? (Y/n): \033[0m' proceed
 proceed=${proceed:-Y}
@@ -84,54 +90,48 @@ fi
 # Web installing .dotfiles, scripts and source files
 #
 
-if [[ "$1" == "--web" ]]; then
-    curl -L -o "$HOME/.dotfiles/bootstrap.sh" \
-        https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/bootstrap.sh
+curl -L -o "$HOME/.dotfiles/bootstrap.sh" \
+    https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/bootstrap.sh
 
-    # Download main files
-    main_files=(
-        ".zshrc"
-        ".envrc"
-        ".p10k.zsh"
-        ".gitconfig"
-    )
+# Download main files
+main_files=(
+    ".zshrc"
+    ".envrc"
+    ".p10k.zsh"
+    ".gitconfig"
+)
 
-    for file in "${main_files[@]}"; do
-        curl -L -o "$HOME/.dotfiles/$file" \
-            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/$file"
-    done
+for file in "${main_files[@]}"; do
+    curl -L -o "$HOME/.dotfiles/$file" \
+        "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/$file"
+done
 
-    # Download source files
-    sources=(
-        "source-instant-prompt.zsh"
-        "source-ollama.zsh"
-        "source-copilot.zsh"
-    )
+# Download source files
+sources=(
+    "source-instant-prompt.zsh"
+    "source-ollama.zsh"
+    "source-copilot.zsh"
+)
 
-    for source in "${sources[@]}"; do
-        curl -L -o "$HOME/.dotfiles/sources/$source" \
-            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/sources/$source"
-    done
+for source in "${sources[@]}"; do
+    curl -L -o "$HOME/.dotfiles/sources/$source" \
+        "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/sources/$source"
+done
 
-    # Download scripts files
-    scripts=(
-        "setup-autosuggestions.sh"
-        "setup-syntax-highlighting.sh"
-        "setup-powerlevel10k.sh"
-        "setup-git.sh"
-        "setup-github.sh"
-        "setup-ollama.sh"
-    )
+# Download scripts files
+scripts=(
+    "setup-autosuggestions.sh"
+    "setup-syntax-highlighting.sh"
+    "setup-powerlevel10k.sh"
+    "setup-git.sh"
+    "setup-github.sh"
+    "setup-ollama.sh"
+)
 
-    for script in "${scripts[@]}"; do
-        curl -L -o "$HOME/.dotfiles/scripts/$script" \
-            "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/scripts/$script"
-    done
-
-else
-    echo "This setup is intended for web installation only. Please use the --web flag."
-    exit 1
-fi
+for script in "${scripts[@]}"; do
+    curl -L -o "$HOME/.dotfiles/scripts/$script" \
+        "https://raw.githubusercontent.com/morissonmaciel/dotfiles/main/scripts/$script"
+done
 
 #
 # Bootstrap .dotfiles configuration
