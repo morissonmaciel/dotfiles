@@ -1,4 +1,4 @@
-if ! alias po &>/dev/null; then
+if ! command -v po &> /dev/null; then
     echo "commands.sh script not imported in .zshrc".
     echo "Please run ~/.dotfiles/bootstrap.sh to fix this issue."
     return 1
@@ -11,7 +11,7 @@ setup_autosuggestions() {
     if [ $? -ne 0 ]; then
         pw "Git clone failed. Attempting to install zsh-autosuggestions using Homebrew..."
 
-        if [ ! -z command -v brew ]; then
+        if ! command -v brew &> /dev/null; then
             pe "Homebrew not found. Please install it and try again."
             return 1
         fi

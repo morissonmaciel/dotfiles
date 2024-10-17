@@ -1,6 +1,6 @@
 export DOTFILES_OLLAMA_DEFAULT_MODEL="mistral"
 
-if ! alias po &>/dev/null; then
+if ! command -v po &> /dev/null; then
     echo "commands.sh script not imported in .zshrc".
     echo "Please run ~/.dotfiles/bootstrap.sh to fix this issue."
     return 1
