@@ -33,3 +33,5 @@ echo "Creating the dropinrc directory allowing for custom zshrc files to be sour
 if [ ! -d ~/.dropinrc ]; then
     mkdir ~/.dropinrc
 fi
+
+echo "\033[33mRemember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically.\033[0m"

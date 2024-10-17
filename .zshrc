@@ -3,8 +3,11 @@ if [ -f $HOME/.dotfiles/sources/source-instant-prompt.zsh ]; then
   source $HOME/.dotfiles/sources/source-instant-prompt.zsh
 fi
 
-# Main .zshrc contents
+# Setting up environment variables for .dotfiles
 export PATH="/usr/loca/bin:$PATH"
+export DOTFILES_FIRST_RUN=NO
+export DOTFILES_USER_PROMPT_SETUPS=NO
+
 alias ll='ls -la'
 alias po='echo'
 alias pe='echo'
@@ -16,13 +19,17 @@ if [ -f $HOME/.dotfiles/scripts/commands.sh ]; then
 fi
 
 # Source every file in $HOME/.dropinrc folder if it exists
-if [ -d $HOME/.dropinrc ]; then
-    for file in $HOME/.dropinrc/*; do
-        if [ -f "$file" ]; then
-            source "$file"
-        fi
-    done
+if [ ! -d $HOME/.dropinrc ]; then
+    mkdir -p $HOME/.dropinrc
+    po "Recreating ~/.dropinrc folder."
+    pw "Remember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically."
 fi
+
+for file in $HOME/.dropinrc/*; do
+    if [ -f "$file" ]; then
+        source "$file"
+    fi
+done
 
 # Set the command prompt to show the current directory in green
 export PS1='%B%F{green}%1~%f ❯%b '
@@ -65,10 +72,6 @@ fi
 if [ -f $HOME/.dotfiles/sources/source-copilot.zsh ]; then
     source $HOME/.dotfiles/sources/source-copilot.zsh
 fi
-
-# Setting up environment variables for .dotfiles
-export DOTFILES_FIRST_RUN=NO
-export DOTFILES_USER_PROMPT_SETUPS=NO
 
 # Source dropin environment variables
 source $HOME/.envrc
