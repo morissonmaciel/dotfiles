@@ -35,10 +35,5 @@ if [ ! -d ~/.dropinrc ]; then
 fi
 
 # Final message
-if [ -n "$ZSH_VERSION" ]; then
-    echo "%F{green}.dotfiles bootstrapping complete!%f"
-    echo "%F{yellow}Remember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically.%f"
-else
-    echo "\033[1;32m.dotfiles bootstrapping complete!\033[0m"
-    echo "\033[1;33mRemember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically.\033[0m"
-fi
+echo ".dotfiles bootstrapping complete!"
+echo "Remember...You can always add custom zshrc files to ~/.dropinrc and they will be sourced automatically."
