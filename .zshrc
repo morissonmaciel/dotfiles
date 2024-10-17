@@ -56,16 +56,17 @@ if [ -f $HOME/.dotfiles/sources/source-copilot.zsh ]; then
 fi
 
 # Setting up environment variables for .dotfiles
-export DOTFILES_FIRTST_RUN=false
-export DOTFILES_USER_PROMPT_SETUPS=false
+export DOTFILES_FIRST_RUN=NO
+export DOTFILES_USER_PROMPT_SETUPS=YES
 
 # Source dropin environment variables
 source $HOME/.envrc
 
-if [ $DOTFILES_FIRTST_RUN = true ]; then
-    sed -i 's/^DOTFILES_FIRTST_RUN=.*/DOTFILES_FIRTST_RUN=false/' $HOME/.envrc
+# Eveytime bootstrap script is called, it resets the DOTFILES_FIRTST_RUN variable to YES
+if [ "$DOTFILES_FIRST_RUN" = "YES" ]; then
+    sed -i 's/^DOTFILES_FIRST_RUN=.*/DOTFILES_FIRST_RUN=NO/' $HOME/.envrc
     # First time setting up prompts for user adjust configurations
-    DOTFILES_USER_PROMPT_SETUPS=true
+    DOTFILES_USER_PROMPT_SETUPS=YES
 fi
 
 # Source some scripts to the command prompt allowing configuration any time
@@ -76,8 +77,8 @@ source $HOME/.dotfiles/scripts/setup-git.sh
 source $HOME/.dotfiles/scripts/setup-github.sh
 source $HOME/.dotfiles/scripts/setup-ollama.sh
 
-if [ $DOTFILES_USER_PROMPT_SETUPS = true ] && [ $DOTFILES_FIRTST_RUN = true ]; then
-    echo "Since it's the first time you are running the .dotfiles, you may be prompted to configure some settings."
+if [ "$DOTFILES_FIRST_RUN" = "YES" ]; then
+    echo "Since it's the first time you are running the .dotfiles, you may be prompted only once to configure some settings."
     echo "Please, follow the instructions and configure the settings as you wish."
     echo ""
     echo "If you want to always be prompted to configure the settings, set the DOTFILES_USER_PROMPT_SETUPS variable to true in the .envrc file."
