@@ -9,14 +9,17 @@ setup_autosuggestions() {
     git_clone_result=$(git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions)
 
     if [ $? -ne 0 ]; then
-        pw "Git clone failed. Attempting to download the raw content of the latest release..."
+        pw "Git clone failed. Attempting to install zsh-autosuggestions using Homebrew..."
 
-        raw_content_url="https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
-        mkdir -p $HOME/.zsh/zsh-autosuggestions
-        curl -L $raw_content_url -o $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+        if [ ! -z command -v brew ]; then
+            pe "Homebrew not found. Please install it and try again."
+            return 1
+        fi
+
+        brew install zsh-autosuggestions
 
         if [ $? -ne 0 ]; then
-            pe "Failed to download the raw content of the latest release."
+            pe "Failed to install zsh-autosuggestions using Homebrew."
             return 1
         fi
     fi

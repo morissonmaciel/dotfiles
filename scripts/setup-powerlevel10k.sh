@@ -9,14 +9,17 @@ setup_powerlevel10k() {
     git_clone_result=$(git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k)
 
     if [ $? -ne 0 ]; then
-        pw "Git clone failed. Attempting to download the raw content of the latest release..."
+        pw "Git clone failed. Attempting to install Powerlevel10k using Homebrew..."
 
-        raw_content_url="https://raw.githubusercontent.com/romkatv/powerlevel10k/master/powerlevel10k.zsh-theme"
-        mkdir -p $HOME/.zsh/powerlevel10k
-        curl -L $raw_content_url -o $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+        if ! command -v brew &>/dev/null; then
+            pe "Homebrew is not installed. Please install Homebrew and try again."
+            return 1
+        fi
+
+        brew install powerlevel10k
 
         if [ $? -ne 0 ]; then
-            pe "Failed to download the raw content of the latest release."
+            pe "Failed to install Powerlevel10k using Homebrew."
             return 1
         fi
     fi
