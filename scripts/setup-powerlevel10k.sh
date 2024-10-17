@@ -1,3 +1,9 @@
+if ! alias po &>/dev/null; then
+    alias po="echo"
+    alias pe="echo"
+    alias pw="echo"
+fi
+
 # Apply Powerlevel10k theme to the command prompt
 setup_powerlevel10k() {
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.zsh/powerlevel10k
@@ -9,5 +15,5 @@ if [ -z "$DOTFILES_USER_PROMPT_SETUPS" ] || [ "$DOTFILES_USER_PROMPT_SETUPS" = "
 fi
 
 if [ ! -f $HOME/.zsh/powerlevel10k/powerlevel10k.zsh-theme ]; then
-    echo "Powerlevel10k not found. Run 'setup_powerlevel10k' to install it."
+    pw "Powerlevel10k not found. Run 'setup_powerlevel10k' to install it."
 fi

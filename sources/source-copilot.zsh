@@ -1,3 +1,7 @@
+if ! alias po &>/dev/null; then
+    alias po="echo"
+fi
+
 func ask_copilot() {
     # Check if GitHub CLI is installed
     if ! check_github_cli; then
@@ -23,7 +27,7 @@ func ask_copilot() {
     elif [ "$type" = "explain" ]; then
         gh copilot explain "$text"
     else
-        echo "Usage: copilot [command|explain] <prompt>"
+        po "Usage: copilot [command|explain] <prompt>"
     fi
 }
 

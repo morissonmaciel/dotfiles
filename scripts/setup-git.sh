@@ -1,3 +1,9 @@
+if ! alias po &>/dev/null; then
+    alias po="echo"
+    alias pe="echo"
+    alias pw="echo"
+fi
+
 setup_git() {
     local git_not_found=false
 
@@ -7,14 +13,14 @@ setup_git() {
 
     if $git_not_found; then
         if ! command -v brew &> /dev/null; then
-            echo "Cannot install git. Homebrew is not installed."
+            pe "Cannot install git. Homebrew is not installed."
             exit 1
         fi
         brew install git
     fi
 
     if command -v git &> /dev/null; then
-        echo "git is installed."
+        po "git is installed."
     fi
 }
 
@@ -23,5 +29,5 @@ if [ -z "$DOTFILES_USER_PROMPT_SETUPS" ] || [ "$DOTFILES_USER_PROMPT_SETUPS" = "
 fi
 
 if [ ! command -v git &> /dev/null ]; then
-    echo "git is not installed. Install it using the command setup_git."
+    pw "git is not installed. Install it using the command setup_git."
 fi

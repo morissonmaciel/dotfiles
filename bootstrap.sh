@@ -1,10 +1,16 @@
 #!/bin/bash
 
-echo "Setting up .zshrc..."
+if ! alias po &>/dev/null; then
+    alias po="echo"
+    alias pe="echo"
+    alias pw="echo"
+fi
+
+po "Setting up .zshrc..."
 rm -rf ~/.zshrc
 ln -s ~/.dotfiles/.zshrc ~/.zshrc
 
-echo "Setting up .envrc first run..."
+po "Setting up .envrc first run..."
 rm -rf ~/.envrc
 ln -s ~/.dotfiles/.envrc ~/.envrc
 
@@ -14,7 +20,7 @@ else
     echo "DOTFILES_FIRST_RUN=YES" >> ~/.envrc
 fi
 
-echo "Setting up .gitconfig..."
+po "Setting up .gitconfig..."
 if [ -f ~/.dotfiles/backup/.gitconfig ]; then
     cp ~/.dotfiles/backup/.gitconfig ~/.dotfiles/
 fi
@@ -22,9 +28,9 @@ fi
 rm -rf ~/.gitconfig
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 
-echo "Setting up .powerlevel10k..."
+po "Setting up .powerlevel10k..."
 rm -rf ~/.p10k.zsh
 ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
 
-echo "Preventing the last login message..."
+po "Preventing the last login message..."
 touch ~/.hushlogin

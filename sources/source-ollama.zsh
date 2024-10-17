@@ -1,3 +1,8 @@
+if ! alias po &>/dev/null; then
+    alias po="echo"
+    alias pe="echo"
+fi
+
 ask_ollama() {
     # Check if Ollama is available
     if ! check_ollama; then
@@ -26,15 +31,15 @@ ask_ollama() {
         prompt="Acting as a bash specialist, provide an answer for '$text'. \
         Do not use markdown or any other formatting, only using plain text."
     elif [ "$type" = "--help" ]; then
-        echo "Usage: llama [explain|command|ask] [text]"
-        echo "Types:"
-        echo "  explain - Provide an explanation for the given text"
-        echo "  command - Return command lines for the given text"
-        echo "  ask     - Provide an answer for the given text"
-        echo "  --help  - Show this help message"
+        po "Usage: llama [explain|command|ask] [text]"
+        po "Types:"
+        po "  explain - Provide an explanation for the given text"
+        po "  command - Return command lines for the given text"
+        po "  ask     - Provide an answer for the given text"
+        po "  --help  - Show this help message"
         return 0
     else
-        echo "Invalid type. Use --help for usage information."
+        pe "Invalid type. Use --help for usage information."
         return 1
     fi
 

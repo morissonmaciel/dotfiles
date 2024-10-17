@@ -120,6 +120,7 @@ done
 
 # Download scripts files
 scripts=(
+    "commands.sh"
     "setup-autosuggestions.sh"
     "setup-syntax-highlighting.sh"
     "setup-powerlevel10k.sh"

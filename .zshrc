@@ -6,6 +6,14 @@ fi
 # Main .zshrc contents
 export PATH="/usr/loca/bin:$PATH"
 alias ll='ls -la'
+alias po='echo'
+alias pe='echo'
+alias pw='echo'
+
+# Source necessary commands.sh if it exists
+if [ -f $HOME/.dotfiles/scripts/commands.sh ]; then
+    source $HOME/.dotfiles/scripts/commands.sh
+fi
 
 # Source existing .zshrc backup file
 if [ -f $HOME/.dotfiles/backup/.zshrc ]; then
@@ -27,7 +35,7 @@ fi
 # Disable the last login message
 if [ ! -f $HOME/.hushlogin ]; then
     touch $HOME/.hushlogin
-    echo "Next time you open the terminal, the last login message will not be presented."
+    po "Next time you open the terminal, the last login message will not be presented."
 fi
 
 # Check fot syntax highlighting and apply it to the command prompt
@@ -78,9 +86,9 @@ source $HOME/.dotfiles/scripts/setup-github.sh
 source $HOME/.dotfiles/scripts/setup-ollama.sh
 
 if [ "$DOTFILES_FIRST_RUN" = "YES" ] && [ "$DOTFILES_USER_PROMPT_SETUPS" = "YES" ]; then
-    echo "First time running .dotfiles. You may be prompted to configure settings."
-    echo "Follow above instructions to set up."
-    echo ""
-    echo "This message will be shown only one time."
-    echo "(To always be prompted, set DOTFILES_USER_PROMPT_SETUPS to YES in .envrc.)"
+    po "First time running .dotfiles. You may be prompted to configure settings."
+    po "Follow above instructions to set up."
+    po ""
+    po "This message will be shown only one time."
+    po "(To always be prompted, set DOTFILES_USER_PROMPT_SETUPS to YES in .envrc.)"
 fi
