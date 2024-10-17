@@ -9,19 +9,8 @@ setup_autosuggestions() {
     git_clone_result=$(git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions)
 
     if [ $? -ne 0 ]; then
-        pw "Git clone failed. Attempting to install zsh-autosuggestions using Homebrew..."
-
-        if ! command -v brew &> /dev/null; then
-            pe "Homebrew not found. Please install it and try again."
-            return 1
-        fi
-
-        brew install zsh-autosuggestions
-
-        if [ $? -ne 0 ]; then
-            pe "Failed to install zsh-autosuggestions using Homebrew."
-            return 1
-        fi
+        pw "Git clone failed. Please check your internet connection and try again."
+        return 1
     fi
 
     source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
