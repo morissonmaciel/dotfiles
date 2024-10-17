@@ -28,3 +28,8 @@ ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
 
 echo "Preventing the last login message..."
 touch ~/.hushlogin
+
+echo "Creating the dropinrc directory allowing for custom zshrc files to be sourced dinamically..."
+if [ ! -d ~/.dropinrc ]; then
+    mkdir ~/.dropinrc
+fi

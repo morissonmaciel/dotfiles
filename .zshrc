@@ -15,10 +15,13 @@ if [ -f $HOME/.dotfiles/scripts/commands.sh ]; then
     source $HOME/.dotfiles/scripts/commands.sh
 fi
 
-# Source existing .zshrc backup file
-if [ -f $HOME/.dotfiles/backup/.zshrc ]; then
-    # If you find conflicts with the existing .zshrc file, comment the following line
-    source $HOME/.dotfiles/backup/.zshrc
+# Source every file in $HOME/.dropinrc folder if it exists
+if [ -d $HOME/.dropinrc ]; then
+    for file in $HOME/.dropinrc/*; do
+        if [ -f "$file" ]; then
+            source "$file"
+        fi
+    done
 fi
 
 # Set the command prompt to show the current directory in green
