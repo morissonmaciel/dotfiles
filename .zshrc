@@ -87,8 +87,8 @@ source $HOME/.dotfiles/scripts/setup-ollama.sh
 
 if [ "$DOTFILES_FIRST_RUN" = "YES" ] && [ "$DOTFILES_USER_PROMPT_SETUPS" = "YES" ]; then
     po "First time running .dotfiles. You may be prompted to configure settings."
-    po "Follow above instructions to set up."
+    po "Follow above instructions to set up as you like."
     po ""
     po "This message will be shown only one time."
-    po "(To always be prompted, set DOTFILES_USER_PROMPT_SETUPS to YES in .envrc.)"
+    po "(To always be prompted for setups, set DOTFILES_USER_PROMPT_SETUPS to YES in .envrc)"
 fi
