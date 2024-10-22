@@ -23,3 +23,6 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+# Set the command prompt to show the current directory in green
+export PS1='%B%F{green}%1~%f ❯%b
