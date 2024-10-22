@@ -1,4 +1,3 @@
-{{REWRITTEN_CODE}}
 #!/bin/bash
 
 clear && clear
