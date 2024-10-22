@@ -1,0 +1,18 @@
+#
+# dotfiles to synlink
+#
+[files]
+dotsynrc
+git
+gitconfig
+zsh
+zshrc
+bashrc
+ssh
+[endfiles]
+
+## hostnames
+
+[hosts]
+GAMER-PC	git=ANY
+[endhosts]
