@@ -13,5 +13,6 @@ bashrc
 ## hostnames
 
 [hosts]
-GAMER-PC	git=ANY
+GAMER-PC			git=ANY
+MacBook-Pro-de-Morisson.local	git=ANY
 [endhosts]
