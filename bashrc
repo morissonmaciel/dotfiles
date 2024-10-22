@@ -25,4 +25,4 @@ fi
 unset rc
 
 # Set the command prompt to show the current directory
-export PS1='\[\033[01;34m\]\w\[\033[00m\]\$ '
+export PS1='\[\033[01;34m\]\w\[\033[00m\]\ ❯ '
