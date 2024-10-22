@@ -1,3 +1,4 @@
+{{REWRITTEN_CODE}}
 #!/bin/bash
 
 clear && clear
@@ -7,8 +8,8 @@ if [[ "$1" != "--web" ]]; then
     exit 1
 fi
 
-echo "\033[1;34mThis script will configure .dotfiles for the current user folder and apply changes to the zsh shell.\033[0m"
-read -p $'\033[1;33mIs it okay to proceed? (Y/n): \033[0m' proceed
+echo "This script will configure .dotfiles for the current user folder and apply changes to the zsh shell."
+read -p "Is it okay to proceed? (Y/n): " proceed
 proceed=${proceed:-Y}
 
 if ! [[ "$proceed" =~ ^[Yy]$ ]]; then
@@ -21,32 +22,32 @@ fi
 #
 
 if [ -f "$HOME/.dotfiles/backup/.zshrc" ]; then
-    read -p $'\033[1;33mA backup .zshrc file was found. Do you want to restore it? (Y/n): \033[0m' restore_zshrc
+    read -p "A backup .zshrc file was found. Do you want to restore it? (Y/n): " restore_zshrc
     restore_zshrc=${restore_zshrc:-Y}
 
     if [[ "$restore_zshrc" =~ ^[Yy]$ ]]; then
         cp "$HOME/.dotfiles/backup/.zshrc" "$HOME/.zshrc"
-        echo "\033[1;32mBackup .zshrc restored.\033[0m"
+        echo "Backup .zshrc restored."
     fi
 fi
 
 if [ -f "$HOME/.dotfiles/backup/.envrc" ]; then
-    read -p $'\033[1;33mA backup .envrc file was found. Do you want to restore it? (Y/n): \033[0m' restore_envrc
+    read -p "A backup .envrc file was found. Do you want to restore it? (Y/n): " restore_envrc
     restore_envrc=${restore_envrc:-Y}
 
     if [[ "$restore_envrc" =~ ^[Yy]$ ]]; then
         cp "$HOME/.dotfiles/backup/.envrc" "$HOME/.envrc"
-        echo "\033[1;32mBackup .envrc restored.\033[0m"
+        echo "Backup .envrc restored."
     fi
 fi
 
 if [ -f "$HOME/.dotfiles/backup/.gitconfig" ]; then
-    read -p $'\033[1;33mA backup .gitconfig file was found. Do you want to restore it? (Y/n): \033[0m' restore_gitconfig
+    read -p "A backup .gitconfig file was found. Do you want to restore it? (Y/n): " restore_gitconfig
     restore_gitconfig=${restore_gitconfig:-Y}
 
     if [[ "$restore_gitconfig" =~ ^[Yy]$ ]]; then
         cp "$HOME/.dotfiles/backup/.gitconfig" "$HOME/.gitconfig"
-        echo "\033[1;32mBackup .gitconfig restored.\033[0m"
+        echo "Backup .gitconfig restored."
     fi
 fi
 
@@ -54,12 +55,12 @@ fi
 # Purge existing .dotfiles folder
 #
 
-echo "\033[1;33mCleaning up previous .dotfiles installation...\033[0m"
+echo "Cleaning up previous .dotfiles installation..."
 if [ -d "$HOME/.dotfiles" ]; then
     rm -rf "$HOME/.dotfiles"
 fi
 
-echo "\033[1;32mCreating new .dotfiles installation folder.\033[0m"
+echo "Creating new .dotfiles installation folder."
 mkdir "$HOME/.dotfiles"
 mkdir "$HOME/.dotfiles/sources"
 mkdir "$HOME/.dotfiles/scripts"
@@ -71,19 +72,19 @@ mkdir "$HOME/.dotfiles/scripts"
 if [ -f "$HOME/.zshrc" ]; then
     mkdir -p "$HOME/.dotfiles/backup"
     cp "$HOME/.zshrc" "$HOME/.dotfiles/backup/.zshrc"
-    echo "\033[1;32mCurrent .zshrc has been backed up to $HOME/.dotfiles/backup/.\033[0m"
+    echo "Current .zshrc has been backed up to $HOME/.dotfiles/backup/."
 fi
 
 if [ -f "$HOME/.envrc" ]; then
     mkdir -p "$HOME/.dotfiles/backup"
     cp "$HOME/.envrc" "$HOME/.dotfiles/backup/.envrc"
-    echo "\033[1;32mCurrent .envrc has been backed up to $HOME/.dotfiles/backup/.\033[0m"
+    echo "Current .envrc has been backed up to $HOME/.dotfiles/backup/."
 fi
 
 if [ -f "$HOME/.gitconfig" ]; then
     mkdir -p "$HOME/.dotfiles/backup"
     cp "$HOME/.gitconfig" "$HOME/.dotfiles/backup/.gitconfig"
-    echo "\033[1;32mCurrent .gitconfig has been backed up to $HOME/.dotfiles/backup/.\033[0m"
+    echo "Current .gitconfig has been backed up to $HOME/.dotfiles/backup/."
 fi
 
 #
@@ -142,5 +143,5 @@ cd "$HOME/.dotfiles"
 bash bootstrap.sh
 
 # Final message
-echo "\033[1;32mConfiguration complete! Your .dotfiles have been set up and changes applied to the zsh shell.\033[0m"
-echo "\033[1;33mPlease close and re-open your terminal to apply the changes.\033[0m"
+echo "Configuration complete! Your .dotfiles have been set up and changes applied to the zsh shell."
+echo "Please close and re-open your terminal to apply the changes."
